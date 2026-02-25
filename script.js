@@ -111,7 +111,7 @@ class HipsHallenge {
 
     loadLevel(levelNum) {
         if (levelNum > this.levels.length) {
-            this.showMessage('🎉 All ' + this.levels.length + ' levels completed! You are a master!', 'success');
+            this.showMessage('All ' + this.levels.length + ' levels completed! You are a master!', 'success');
             this.nextBtn.style.display = 'none';
             return;
         }
@@ -151,25 +151,24 @@ class HipsHallenge {
 
                 if (this.playerPos.x === x && this.playerPos.y === y) {
                     tile.className += ' player';
-                    tile.textContent = '🧑';
+                    tile.textContent = 'C';
                 } else if (tileType === 0) {
                     tile.className += ' empty';
                 } else if (tileType === 1) {
                     tile.className += ' wall';
                 } else if (tileType === 2) {
                     tile.className += ' gem';
-                    tile.textContent = '💎';
+                    tile.textContent = '◆';
                 } else if (tileType === 3) {
                     tile.className += ' door';
                     if (this.doorsUnlocked()) {
                         tile.className += ' unlocked';
                     }
-                    tile.textContent = '🔒';
                 } else if (tileType === 4) {
                     tile.className += ' exit';
                 } else if (tileType === 5) {
                     tile.className += ' key';
-                    tile.textContent = '🔑';
+                    tile.textContent = '⚷';
                 }
 
                 tile.addEventListener('click', () => this.movePlayer(x, y));
@@ -214,7 +213,7 @@ class HipsHallenge {
             this.levelData.tiles[y][x] = 0;
             this.keysCollected++;
         } else if (targetTile === 4) {
-            this.showMessage('🎉 Level Complete! Great job!', 'success');
+            this.showMessage('Level Complete! Great job!', 'success');
             this.nextBtn.style.display = 'inline-block';
             return;
         }
@@ -262,9 +261,18 @@ class HipsHallenge {
     updateUI() {
         document.getElementById('level').textContent = this.currentLevel;
         document.getElementById('moves').textContent = this.moves;
-        document.getElementById('gems').textContent = this.gemsCollected;
-        document.getElementById('gems-total').textContent = this.levelData.gems;
-        document.getElementById('keys').textContent = this.keysCollected;
+        document.getElementById('gems').textContent = this.levelData.gems - this.gemsCollected;
+
+        const slots = document.querySelectorAll('#keys-grid .inv-slot');
+        slots.forEach((slot, i) => {
+            if (i < this.keysCollected) {
+                slot.textContent = '⚷';
+                slot.classList.add('filled');
+            } else {
+                slot.textContent = '';
+                slot.classList.remove('filled');
+            }
+        });
     }
 
     showMessage(text, type = 'info') {
