@@ -50,7 +50,8 @@ class HipsHallenge {
                     [1, 1, 1, 1, 1, 1, 1]
                 ],
                 start: { x: 1, y: 1 },
-                gems: 2
+                gems: 1,
+                keysRequired: 2
             },
             {
                 name: 'Locked Treasure',
@@ -235,7 +236,8 @@ class HipsHallenge {
     }
 
     doorsUnlocked() {
-        return this.keysCollected >= this.levelData.gems;
+        const required = this.levelData.keysRequired ?? this.levelData.gems;
+        return this.keysCollected >= required;
     }
 
     levelComplete() {
