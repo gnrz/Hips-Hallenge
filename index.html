@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hips Hallenge - Tile Puzzle Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hips Hallenge</h1>
+            <p class="subtitle">Collect gems, use keys, find the exit!</p>
+        </header>
+
+        <div class="game-info">
+            <div class="stat">
+                <span class="label">Level:</span>
+                <span id="level">1</span>
+            </div>
+            <div class="stat">
+                <span class="label">Moves:</span>
+                <span id="moves">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">Gems:</span>
+                <span id="gems">0</span>/<span id="gems-total">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">Keys:</span>
+                <span id="keys">0</span>
+            </div>
+        </div>
+
+        <div id="game-board" class="game-board"></div>
+
+        <div class="controls">
+            <button id="reset-btn" class="btn">Reset Level</button>
+            <button id="next-btn" class="btn" style="display:none;">Next Level</button>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
