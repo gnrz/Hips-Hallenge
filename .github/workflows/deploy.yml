@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
-      - claude/create-game-project-ttWmu
-  pull_request:
-    branches:
-      - main
-      - master
-      - claude/create-game-project-ttWmu
 
 jobs:
   deploy:
