@@ -5,244 +5,308 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #008080;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    font-family: 'Courier New', monospace;
+    padding: 16px;
 }
 
-.container {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
-    width: 100%;
+/* Classic Windows 3.1-style window */
+.window-frame {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: 3px 3px 0 #000000;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-header h1 {
-    color: #333;
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-header .subtitle {
-    color: #666;
-    font-size: 1.1em;
-}
-
-.game-info {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 10px;
-}
-
-.stat {
-    text-align: center;
-    padding: 10px;
-    background: white;
-    border-radius: 8px;
-    border: 2px solid #667eea;
-}
-
-.stat .label {
-    display: block;
-    color: #666;
-    font-size: 0.9em;
-    margin-bottom: 5px;
-}
-
-.stat span:not(.label) {
-    display: block;
-    color: #667eea;
-    font-size: 1.5em;
+.window-titlebar {
+    background: #000080;
+    color: #ffffff;
+    padding: 3px 8px;
+    font-size: 13px;
     font-weight: bold;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+.window-body {
+    display: flex;
+    padding: 8px;
+    gap: 8px;
+    background: #c0c0c0;
+    align-items: flex-start;
+}
+
+/* Game viewport with inset border */
+.game-viewport {
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
 }
 
 .game-board {
     display: grid;
-    gap: 8px;
-    padding: 20px;
-    background: #f0f0f0;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
+    gap: 0;
+    background: #000080;
 }
 
+/* === TILES === */
 .tile {
-    width: 50px;
-    height: 50px;
-    background: #ddd;
-    border: 2px solid #999;
-    border-radius: 8px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #00004f;
+    border-radius: 0;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5em;
-    transition: all 0.2s ease;
+    font-size: 1.3em;
     user-select: none;
+    transition: none;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
 }
 
-.tile:hover:not(.wall) {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* Floor - dark blue like original CC */
+.tile.empty {
+    background: #000088;
+    border-color: #00005a;
 }
 
+/* Wall - brown brick with raised border */
 .tile.wall {
-    background: #333;
-    border-color: #000;
+    background: #804010;
+    border: 2px solid;
+    border-color: #c07030 #401800 #401800 #c07030;
     cursor: not-allowed;
 }
 
-.tile.empty {
-    background: white;
-    border-color: #ccc;
-}
-
+/* Player - Chip character */
 .tile.player {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-color: #667eea;
-    color: white;
-    font-weight: bold;
+    background: #000088;
+    border-color: #00005a;
+    color: #ffff00;
+    font-size: 1.5em;
 }
 
+/* Chip collectible - cyan diamond with glow */
 .tile.gem {
-    background: #fff9e6;
-    border-color: #ffd700;
-    animation: sparkle 0.6s ease-in-out infinite;
+    background: #000088;
+    border-color: #00005a;
+    color: #00eeff;
+    font-size: 1.4em;
+    animation: chip-glow 0.7s ease-in-out infinite alternate;
 }
 
+/* Key - gold */
 .tile.key {
-    background: #fff9e6;
-    border-color: #ffb84d;
+    background: #000088;
+    border-color: #00005a;
+    color: #ffcc00;
+    font-size: 1.1em;
 }
 
+/* Door/Socket - yellow socket, locked */
 .tile.door {
-    background: #ffe6e6;
-    border-color: #ff6b6b;
+    background: #999900;
+    border: 2px solid;
+    border-color: #dddd44 #555500 #555500 #dddd44;
+    cursor: pointer;
 }
 
+/* Door/Socket - unlocked (looks like floor) */
 .tile.door.unlocked {
-    background: #e6f7ff;
-    border-color: #52b788;
+    background: #000088;
+    border: 1px solid #00005a;
 }
 
+/* Exit - green checkerboard */
 .tile.exit {
-    background: linear-gradient(135deg, #52b788 0%, #2d6a4f 100%);
-    border-color: #2d6a4f;
-    animation: pulse 0.8s ease-in-out infinite;
+    background-image: repeating-conic-gradient(#006600 0% 25%, #00aa00 0% 50%);
+    background-size: 16px 16px;
+    border-color: #004400;
 }
 
-.tile.exit::after {
-    content: '🚪';
-}
-
-@keyframes sparkle {
-    0%, 100% {
-        box-shadow: inset 0 0 5px rgba(255, 215, 0, 0.5);
+@keyframes chip-glow {
+    from {
+        color: #00ccee;
+        text-shadow: 0 0 4px #00ccee;
     }
-    50% {
-        box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.8);
+    to {
+        color: #88ffff;
+        text-shadow: 0 0 10px #88ffff, 0 0 16px #00eeff;
     }
 }
 
-@keyframes pulse {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.7);
-    }
-    50% {
-        box-shadow: 0 0 0 10px rgba(82, 183, 136, 0);
-    }
+/* === INFO PANEL === */
+.info-panel {
+    width: 148px;
+    background: #c07830;
+    border: 2px solid;
+    border-color: #d89040 #805020 #805020 #d89040;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
 }
 
+.panel-title {
+    text-align: center;
+    padding: 6px 4px;
+    background: #000080;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.title-line1 {
+    display: block;
+    color: #ffff00;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.title-line2 {
+    display: block;
+    color: #ff6600;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.info-label {
+    color: #301000;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Red LCD-style number display */
+.info-value {
+    background: #000000;
+    color: #ff3300;
+    font-family: 'Courier New', monospace;
+    font-size: 26px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    display: block;
+    letter-spacing: 4px;
+    text-align: right;
+}
+
+/* Key inventory grid */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: #000000;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    padding: 4px;
+    min-height: 44px;
+}
+
+.inv-slot {
+    width: 26px;
+    height: 26px;
+    background: #000055;
+    border: 1px solid #000033;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: transparent;
+}
+
+.inv-slot.filled {
+    background: #002244;
+    color: #ffcc00;
+}
+
+/* Controls */
 .controls {
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .btn {
-    padding: 12px 30px;
-    font-size: 1em;
-    border: none;
-    border-radius: 8px;
-    background: #667eea;
-    color: white;
-    cursor: pointer;
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
     font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background: #764ba2;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    background: #c0c0c0;
+    color: #000000;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn:active {
-    transform: translateY(0);
+    border-color: #808080 #ffffff #ffffff #808080;
 }
 
+/* Message display */
 .message {
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    min-height: 30px;
-    padding: 10px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    padding: 4px;
+    background: #000000;
+    color: #00cc00;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    min-height: 48px;
+    word-break: break-word;
+    line-height: 1.5;
 }
 
-.message.success {
-    background: #d4edda;
-    color: #155724;
-    border: 2px solid #52b788;
-}
+.message.success { color: #00ff44; }
+.message.error   { color: #ff4400; }
+.message.info    { color: #44aaff; }
 
-.message.error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 2px solid #f5c6cb;
-}
-
-.message.info {
-    background: #d1ecf1;
-    color: #0c5460;
-    border: 2px solid #bee5eb;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
+@media (max-width: 640px) {
+    .window-body {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    header h1 {
-        font-size: 1.8em;
+    .info-panel {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
     }
 
-    .game-info {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+    .panel-title {
+        width: 100%;
+    }
+
+    .info-block {
+        flex: 1;
+        min-width: 80px;
     }
 
     .tile {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2em;
+        width: 36px;
+        height: 36px;
+        font-size: 1em;
     }
 }
