@@ -105,7 +105,7 @@ class HipsHallenge {
                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
                 ],
                 start: { x: 1, y: 1 },
-                gems: 3
+                gems: 2
             }
         ];
     }
