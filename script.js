@@ -151,7 +151,19 @@ class HipsHallenge {
 
                 if (this.playerPos.x === x && this.playerPos.y === y) {
                     tile.className += ' player';
-                    tile.textContent = 'C';
+                    tile.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 48 48" shape-rendering="crispEdges">` +
+                        `<rect x="12" y="0" width="18" height="3" fill="#1a69c4"/>` +
+                        `<rect x="9" y="3" width="24" height="6" fill="#1a69c4"/>` +
+                        `<rect x="6" y="9" width="30" height="3" fill="#0a3a7a"/>` +
+                        `<rect x="9" y="12" width="24" height="15" fill="#e8b89a"/>` +
+                        `<rect x="12" y="18" width="3" height="3" fill="#1a1a1a"/>` +
+                        `<rect x="27" y="18" width="3" height="3" fill="#1a1a1a"/>` +
+                        `<rect x="6" y="27" width="30" height="12" fill="#3a8fd4"/>` +
+                        `<rect x="9" y="39" width="9" height="6" fill="#1a3a7a"/>` +
+                        `<rect x="24" y="39" width="9" height="6" fill="#1a3a7a"/>` +
+                        `<rect x="6" y="45" width="12" height="3" fill="#5a3010"/>` +
+                        `<rect x="24" y="45" width="12" height="3" fill="#5a3010"/>` +
+                        `</svg>`;
                 } else if (tileType === 0) {
                     tile.className += ' empty';
                 } else if (tileType === 1) {
