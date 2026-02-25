@@ -19,6 +19,8 @@ Visit the [GitHub Pages site](https://gnrz.github.io/Hips-Hallenge/) to play in 
 1. **Getting Started** - Learn the basics with a simple gem collection puzzle
 2. **Key Hunt** - Navigate through obstacles to find keys and gems
 3. **Locked Treasure** - A challenging puzzle with multiple gems, keys, and locked areas
+4. **Maze Master** - Complex maze with multiple paths and collectibles
+5. **Ultimate Challenge** - The hardest level with intricate pathways and maximum gems to collect
 
 ## Development
 

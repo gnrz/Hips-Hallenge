@@ -68,13 +68,50 @@ class HipsHallenge {
                 ],
                 start: { x: 1, y: 1 },
                 gems: 2
+            },
+            {
+                name: 'Maze Master',
+                width: 9,
+                height: 9,
+                tiles: [
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 0, 0, 1, 0, 0, 1, 0, 1],
+                    [1, 0, 2, 1, 0, 5, 1, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+                    [1, 0, 1, 1, 0, 1, 1, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0, 2, 1],
+                    [1, 1, 1, 0, 5, 0, 1, 1, 1],
+                    [1, 0, 0, 0, 0, 3, 0, 4, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1]
+                ],
+                start: { x: 1, y: 1 },
+                gems: 2
+            },
+            {
+                name: 'Ultimate Challenge',
+                width: 10,
+                height: 10,
+                tiles: [
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 0, 0, 1, 2, 1, 0, 0, 0, 1],
+                    [1, 0, 5, 1, 0, 1, 0, 1, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+                    [1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                    [1, 0, 5, 1, 2, 1, 0, 1, 3, 1],
+                    [1, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0, 0, 4, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                ],
+                start: { x: 1, y: 1 },
+                gems: 3
             }
         ];
     }
 
     loadLevel(levelNum) {
         if (levelNum > this.levels.length) {
-            this.showMessage('🎉 All levels completed! Great job!', 'success');
+            this.showMessage('🎉 All ' + this.levels.length + ' levels completed! You are a master!', 'success');
             this.nextBtn.style.display = 'none';
             return;
         }
